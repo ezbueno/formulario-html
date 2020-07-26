@@ -10,7 +10,7 @@
         <input type="text" name="campo_nome"/><br/>
 
         Sexo:
-        <input type="radio" name="campo_sexo" value="M" checked/>Masculino
+        <input type="radio" name="campo_sexo" value="M"/>Masculino
         <input type="radio" name="campo_sexo" value="F"/>Feminino<br/>
 
         <input type="checkbox" name="campo_maior" value="maior" checked/>
@@ -27,8 +27,57 @@
         <br/>
 
         <input type="reset" value="Limpar dados"/>
-        <input type="button" value="Enviar"/>
-
+        <input type="button" value="Enviar" onclick="validarFormulario();"/>
     </form>
+
+    <script>
+        function validarFormulario() {
+            var validacao = true;
+
+            var conteudo_nome = document.forms["meu_form"].campo_nome.value;
+
+            if (conteudo_nome == "") {
+                alert("É necessário preencher o campo nome corretamente");
+                validacao = false;
+                return;
+            }
+
+            var total_opcoes = document.forms["meu_form"].campo_sexo.length;
+            var opcao_escolhida = null;
+
+            for (i = 0; i < total_opcoes; i++) {
+                if (document.forms["meu_form"].campo_sexo[i].checked == true) {
+                   opcao_escolhida = document.forms["meu_form"].campo_sexo[i].value;
+                }
+            }
+
+            if (opcao_escolhida == null) {
+                alert("É necessário selecionar o campo sexo corretamente");
+                validacao = false;
+                return;
+            }
+
+            var conteudo_maior = document.forms["meu_form"].campo_maior.checked;
+
+            if (conteudo_maior != true) {
+                alert("Este site é restrito para maiores de idade");
+                validacao = false;
+                return;
+            }
+
+            conteudo_comoConheceuOsite = document.forms["meu_form"].campo_como.selectedIndex;
+
+            if (conteudo_comoConheceuOsite == 0) {
+                alert("É necessário selecionar como conheceu o site")
+                validacao = false;
+                return;
+            }
+
+            if (validacao) {
+                alert("Dados válidos!")
+                document.forms["meu_form"].submit();
+            }
+        }
+    </script>
 </body>
 </html>
